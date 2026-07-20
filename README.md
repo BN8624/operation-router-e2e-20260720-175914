@@ -8,3 +8,10 @@ The test must:
 5. Leave the test issue open.
 6. Create no branch or pull request.
 No credentials, personal data, private logs, or environment details belong in this repository.
+
+## Usage
+
+```bash
+python src/slugcli.py Hello World
+# hello-world
+```
