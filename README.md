@@ -14,4 +14,7 @@ No credentials, personal data, private logs, or environment details belong in th
 ```bash
 python src/slugcli.py Hello World
 # hello-world
+
+python src/slugcli.py --max-length 8 Hello World
+# hello-wo
 ```

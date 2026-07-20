@@ -33,6 +33,39 @@ class TestSlugCli(unittest.TestCase):
         self.assertEqual(result.returncode, 2)
         self.assertTrue(result.stderr.strip())
 
+    def test_cli_max_length_truncates_output(self):
+        result = subprocess.run(
+            [sys.executable, str(CLI), "--max-length", "8", "Hello", "World"],
+            capture_output=True,
+            text=True,
+            cwd=str(REPO_ROOT),
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(result.stdout.strip(), "hello-wo")
+
+    def test_cli_max_length_strips_trailing_hyphen(self):
+        result = subprocess.run(
+            [sys.executable, str(CLI), "Hello", "World", "--max-length", "6"],
+            capture_output=True,
+            text=True,
+            cwd=str(REPO_ROOT),
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(result.stdout.strip(), "hello")
+
+    def test_cli_max_length_rejects_non_integer(self):
+        result = subprocess.run(
+            [sys.executable, str(CLI), "--max-length", "abc", "Hello", "World"],
+            capture_output=True,
+            text=True,
+            cwd=str(REPO_ROOT),
+            check=False,
+        )
+        self.assertEqual(result.returncode, 2)
+        self.assertTrue(result.stderr.strip())
+
 
 if __name__ == "__main__":
     unittest.main()
