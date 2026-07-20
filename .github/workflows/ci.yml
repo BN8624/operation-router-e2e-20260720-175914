@@ -1,0 +1,21 @@
+name: Router E2E CI
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+      - name: Validate E2E marker
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f docs/router-e2e.md
+          test "$(grep -c '^Status:' docs/router-e2e.md)" -eq 1
+          grep -Eq '^Status: (PENDING|PASS)$' docs/router-e2e.md
