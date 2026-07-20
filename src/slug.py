@@ -4,9 +4,14 @@
 import re
 
 
-def normalize_slug(text: str) -> str:
+def normalize_slug(text: str, max_length: int | None = None) -> str:
     """Lowercase text and normalize whitespace/underscores to single hyphens."""
     text = text.lower()
     text = re.sub(r"[\s_]+", "-", text)
     text = re.sub(r"-+", "-", text)
-    return text.strip("-")
+    text = text.strip("-")
+    if max_length is None:
+        return text
+    if max_length <= 0:
+        return ""
+    return text[:max_length].rstrip("-")

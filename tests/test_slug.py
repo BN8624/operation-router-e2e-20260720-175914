@@ -16,6 +16,15 @@ class TestNormalizeSlug(unittest.TestCase):
     def test_only_hyphens(self):
         self.assertEqual(normalize_slug("---"), "")
 
+    def test_without_max_length_preserves_existing_behavior(self):
+        self.assertEqual(normalize_slug("  Hello__World  "), "hello-world")
+
+    def test_max_length_truncates_normalized_slug(self):
+        self.assertEqual(normalize_slug("hello world", max_length=8), "hello-wo")
+
+    def test_max_length_strips_trailing_hyphen(self):
+        self.assertEqual(normalize_slug("hello world", max_length=6), "hello")
+
 
 if __name__ == "__main__":
     unittest.main()
