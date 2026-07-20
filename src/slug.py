@@ -15,3 +15,8 @@ def normalize_slug(text: str, max_length: int | None = None) -> str:
     if max_length <= 0:
         return ""
     return text[:max_length].rstrip("-")
+
+
+def slug_from_args(args, max_length=None):
+    """Join args with a single space, then return normalize_slug of the result."""
+    return normalize_slug(" ".join(args), max_length=max_length)

@@ -3,7 +3,7 @@
 
 import unittest
 
-from src.slug import normalize_slug
+from src.slug import normalize_slug, slug_from_args
 
 
 class TestNormalizeSlug(unittest.TestCase):
@@ -24,6 +24,14 @@ class TestNormalizeSlug(unittest.TestCase):
 
     def test_max_length_strips_trailing_hyphen(self):
         self.assertEqual(normalize_slug("hello world", max_length=6), "hello")
+
+
+class TestSlugFromArgs(unittest.TestCase):
+    def test_slug_from_args_hello_world(self):
+        self.assertEqual(slug_from_args(["Hello", "World"]), "hello-world")
+
+    def test_slug_from_args_max_length(self):
+        self.assertEqual(slug_from_args(["Hello", "World"], max_length=6), "hello")
 
 
 if __name__ == "__main__":

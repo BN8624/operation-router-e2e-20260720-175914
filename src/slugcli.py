@@ -9,7 +9,7 @@ _ROOT = Path(__file__).resolve().parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-from src.slug import normalize_slug
+from src.slug import slug_from_args
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -36,7 +36,7 @@ def main(argv: list[str] | None = None) -> int:
     if not text_args:
         print("usage: python src/slugcli.py <text...>", file=sys.stderr)
         return 2
-    print(normalize_slug(" ".join(text_args), max_length=max_length))
+    print(slug_from_args(text_args, max_length=max_length))
     return 0
 
 
