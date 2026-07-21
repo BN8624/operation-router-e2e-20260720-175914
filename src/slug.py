@@ -17,6 +17,16 @@ def normalize_slug(text: str, max_length: int | None = None) -> str:
     return text[:max_length].rstrip("-")
 
 
+def is_valid_slug(text: str) -> bool:
+    """Return True if text is lowercase letters/digits/hyphens only and does
+    not start or end with a hyphen."""
+    if not text:
+        return False
+    if not re.fullmatch(r"[a-z0-9-]+", text):
+        return False
+    return not text.startswith("-") and not text.endswith("-")
+
+
 def slug_from_args(args, max_length=None):
     """Join non-empty args with a single space, then return normalize_slug of the result.
 

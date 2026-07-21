@@ -3,7 +3,7 @@
 
 import unittest
 
-from src.slug import normalize_slug, slug_from_args
+from src.slug import is_valid_slug, normalize_slug, slug_from_args
 
 
 class TestNormalizeSlug(unittest.TestCase):
@@ -40,6 +40,14 @@ class TestSlugFromArgs(unittest.TestCase):
 
     def test_slug_from_args_all_invalid_returns_empty_string(self):
         self.assertEqual(slug_from_args([None, "", "   "]), "")
+
+
+class TestIsValidSlug(unittest.TestCase):
+    def test_is_valid_slug_accepts_valid_case(self):
+        self.assertTrue(is_valid_slug("hello-world-123"))
+
+    def test_is_valid_slug_rejects_leading_hyphen(self):
+        self.assertFalse(is_valid_slug("-hello-world"))
 
 
 if __name__ == "__main__":
