@@ -3,7 +3,7 @@
 
 import unittest
 
-from src.slug import is_valid_slug, normalize_slug, slug_from_args
+from src.slug import is_valid_slug, normalize_slug, slug_from_args, slug_prefix
 
 
 class TestNormalizeSlug(unittest.TestCase):
@@ -40,6 +40,14 @@ class TestSlugFromArgs(unittest.TestCase):
 
     def test_slug_from_args_all_invalid_returns_empty_string(self):
         self.assertEqual(slug_from_args([None, "", "   "]), "")
+
+
+class TestSlugPrefix(unittest.TestCase):
+    def test_slug_prefix_truncates_normalized_slug(self):
+        self.assertEqual(slug_prefix("Hello World", 5), "hello")
+
+    def test_slug_prefix_strips_trailing_hyphen(self):
+        self.assertEqual(slug_prefix("Hello World", 6), "hello")
 
 
 class TestIsValidSlug(unittest.TestCase):
