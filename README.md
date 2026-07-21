@@ -21,3 +21,7 @@ python src/slugcli.py --max-length 8 Hello World
 python src/slugcli.py --json Hello World
 # {"slug": "hello-world"}
 ```
+
+## 검증 이력
+
+- 2026-07-21: operation-router 작전 1 Claude-only 경로 검증 커밋
