@@ -91,6 +91,17 @@ class TestSlugCli(unittest.TestCase):
         payload = json.loads(result.stdout.strip())
         self.assertEqual(payload, {"slug": "hello"})
 
+    def test_cli_version_prints_and_exits_0(self):
+        result = subprocess.run(
+            [sys.executable, str(CLI), "--version"],
+            capture_output=True,
+            text=True,
+            cwd=str(REPO_ROOT),
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(result.stdout.strip(), "slugcli 1.0.0")
+
 
 if __name__ == "__main__":
     unittest.main()

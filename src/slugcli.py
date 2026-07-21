@@ -15,6 +15,9 @@ from src.slug import slug_from_args
 
 def main(argv: list[str] | None = None) -> int:
     args = sys.argv[1:] if argv is None else argv
+    if "--version" in args:
+        print("slugcli 1.0.0")
+        return 0
     max_length = None
     json_output = False
     text_args = []
