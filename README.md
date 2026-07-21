@@ -17,4 +17,7 @@ python src/slugcli.py Hello World
 
 python src/slugcli.py --max-length 8 Hello World
 # hello-wo
+
+python src/slugcli.py --json Hello World
+# {"slug": "hello-world"}
 ```

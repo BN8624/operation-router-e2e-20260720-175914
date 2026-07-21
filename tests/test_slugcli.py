@@ -1,6 +1,7 @@
 # 슬러그 CLI 통합 테스트
 """Integration tests for the slug CLI entry point."""
 
+import json
 import subprocess
 import sys
 import unittest
@@ -65,6 +66,30 @@ class TestSlugCli(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 2)
         self.assertTrue(result.stderr.strip())
+
+    def test_cli_json_outputs_valid_json_with_slug(self):
+        result = subprocess.run(
+            [sys.executable, str(CLI), "--json", "Hello", "World"],
+            capture_output=True,
+            text=True,
+            cwd=str(REPO_ROOT),
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0)
+        payload = json.loads(result.stdout.strip())
+        self.assertEqual(payload, {"slug": "hello-world"})
+
+    def test_cli_json_with_max_length_combination(self):
+        result = subprocess.run(
+            [sys.executable, str(CLI), "--json", "--max-length", "6", "Hello", "World"],
+            capture_output=True,
+            text=True,
+            cwd=str(REPO_ROOT),
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0)
+        payload = json.loads(result.stdout.strip())
+        self.assertEqual(payload, {"slug": "hello"})
 
 
 if __name__ == "__main__":
