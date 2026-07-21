@@ -33,6 +33,14 @@ class TestSlugFromArgs(unittest.TestCase):
     def test_slug_from_args_max_length(self):
         self.assertEqual(slug_from_args(["Hello", "World"], max_length=6), "hello")
 
+    def test_slug_from_args_skips_none_and_blank_entries(self):
+        self.assertEqual(
+            slug_from_args(["Hello", None, "", "  ", "World"]), "hello-world"
+        )
+
+    def test_slug_from_args_all_invalid_returns_empty_string(self):
+        self.assertEqual(slug_from_args([None, "", "   "]), "")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -18,5 +18,12 @@ def normalize_slug(text: str, max_length: int | None = None) -> str:
 
 
 def slug_from_args(args, max_length=None):
-    """Join args with a single space, then return normalize_slug of the result."""
-    return normalize_slug(" ".join(args), max_length=max_length)
+    """Join non-empty args with a single space, then return normalize_slug of the result.
+
+    Items that are None or contain only whitespace (including empty strings)
+    are skipped. If no valid items remain, return "".
+    """
+    valid = [arg for arg in args if arg is not None and arg.strip() != ""]
+    if not valid:
+        return ""
+    return normalize_slug(" ".join(valid), max_length=max_length)
