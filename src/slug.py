@@ -27,6 +27,12 @@ def is_valid_slug(text: str) -> bool:
     return not text.startswith("-") and not text.endswith("-")
 
 
+def slug_prefix(text: str, length: int) -> str:
+    """Return the first `length` characters of normalize_slug(text), with any
+    trailing hyphen removed."""
+    return normalize_slug(text)[:length].rstrip("-")
+
+
 def slug_from_args(args, max_length=None):
     """Join non-empty args with a single space, then return normalize_slug of the result.
 
